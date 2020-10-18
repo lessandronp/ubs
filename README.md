@@ -27,11 +27,10 @@
 
 ## Classes de teste
 
---1. Foram adicionadas classes de teste unitário utilizando o jupiter. Na classe de testes de Post, é possível adicionar um Post com comentário, link ou imagem.
-	Também temos a classe de testes de comentário, para possíveis comentários relacionados à um determinado Post, assim a classe de testes de álbum, onde
-	é possível realizar a criação de um álbum com imagem, e a classe de testes de usuário. 
---2. Os testes são executados com a versão mais nova, Junit 5. 
---3. A versão que apresentou melhor compatibilidade com o Junit 5 foi a 2020-09.
+1. Foi adicionada a classe de teste unitário da UBS utilizando o jupiter. Também foi criada a classe de teste da Ubs utilizando Mock.
+2. Os testes são executados com a versão mais nova, Junit 5. 
+3. Caso os testes sejam executados via "Junit Test" no Eclipse, a versão que apresentou melhor compatibilidade com o Junit 5 foi a 2020-09.
+4. Via Maven 
 
 ## EndPoints
 
