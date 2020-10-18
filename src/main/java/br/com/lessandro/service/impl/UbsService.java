@@ -70,7 +70,7 @@ public class UbsService implements IUbsService {
 	public PageDto<UbsDto> getAllUbs(int page, int size) throws ValidationException {
 		PageValidator.validatePageSize(page, size);
 		Page<Ubs> ubs = new PageImpl<>(new ArrayList<>());
-		Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "latitude", "longitude");
+		Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "name");
 		ubs = ubsRepository.findAll(pageable);
 		List<UbsDto> ubsDto = Arrays.asList(modelMapper.map(ubs.getContent(), UbsDto[].class));
 		return new PageDto<>(ubsDto, ubs.getNumber(), ubs.getSize(), ubs.getTotalElements(), ubs.getTotalPages(),

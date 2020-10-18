@@ -17,5 +17,15 @@ public class GeocodeValidator {
 			throw new ValidationException(System.currentTimeMillis(), HttpStatus.BAD_REQUEST, "Erro de validação",
 					"Os parâmetros de latitude e longitude estão incompletos");
 		}
+
+		if (StringUtils.containsWhitespace(query.split(",")[0])) {
+			throw new ValidationException(System.currentTimeMillis(), HttpStatus.BAD_REQUEST, "Erro de validação",
+					"O parâmetro da latitude não pode ter espaço");
+		}
+
+		if (StringUtils.containsWhitespace(query.split(",")[1])) {
+			throw new ValidationException(System.currentTimeMillis(), HttpStatus.BAD_REQUEST, "Erro de validação",
+					"O parâmetro da longitude não pode ter espaço");
+		}
 	}
 }

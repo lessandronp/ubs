@@ -222,7 +222,7 @@
 					<include>resources/**</include>
 				</includes>
 			</resource>
-			
+
 		</resources>
 
 	</build>
