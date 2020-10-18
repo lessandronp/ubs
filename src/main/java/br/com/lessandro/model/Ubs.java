@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -17,9 +19,10 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = { "name" }, callSuper = false)
+@EqualsAndHashCode(of = { "name", "codCnes" }, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ubs", uniqueConstraints = { @UniqueConstraint(name = "uk_ubs", columnNames = { "name", "cod_cnes" }) })
 public class Ubs extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

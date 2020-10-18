@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>br.com.lessandro</groupId>
-	<artifactId>ubs-prj</artifactId>
+	<artifactId>UBS</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>UBS</name>
@@ -152,13 +152,6 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.8.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.tika/tika-core -->
-		<dependency>
-			<groupId>org.apache.tika</groupId>
-			<artifactId>tika-core</artifactId>
-			<version>1.24.1</version>
 		</dependency>
 
 		<dependency>

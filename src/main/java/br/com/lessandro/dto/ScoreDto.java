@@ -6,15 +6,15 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(of = { "structureSize" }, callSuper = false)
+@EqualsAndHashCode(of = { "structureSize", "adaptationSenior", "medicalEquipment", "medicine" }, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScoreDto {
 
 	private Long id;
-    private StructureSizeDto structureSize;
-    private AdaptationSeniorDto adaptationSenior;
-    private MedicalEquipmentDto medicalEquipment;
-    private MedicineDto medicine;
+	private StructureSizeDto structureSize;
+	private AdaptationSeniorDto adaptationSenior;
+	private MedicalEquipmentDto medicalEquipment;
+	private MedicineDto medicine;
 
 }

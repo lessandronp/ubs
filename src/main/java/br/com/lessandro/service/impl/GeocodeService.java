@@ -1,10 +1,10 @@
 package br.com.lessandro.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,13 +44,13 @@ public class GeocodeService implements IGeocodeService {
 	}
 	
 	@Override
-	public Geocode findByLatitudeAndLongitude(String latitude, String longitude) {
+	public Geocode findByLatitudeAndLongitude(BigDecimal latitude, BigDecimal longitude) {
 		return geocodeRepository.findByLatitudeAndLongitude(latitude, longitude);
 	}
 	
 	@Override
 	public Geocode prepareGeocode(Geocode geocode) {
-		if (StringUtils.isNotEmpty(geocode.getLatitude()) && StringUtils.isNotEmpty(geocode.getLongitude())) {
+		if (geocode.getLatitude() != null && geocode.getLongitude() != null) {
 			Geocode geocodeDB = this.findByLatitudeAndLongitude(geocode.getLatitude(), geocode.getLongitude());
 			if (geocodeDB != null) {
 				return geocodeDB;

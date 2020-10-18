@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +34,13 @@ import br.com.lessandro.model.Score;
 import br.com.lessandro.model.StructureSize;
 import br.com.lessandro.model.Ubs;
 import br.com.lessandro.repository.IUbsRepository;
+import br.com.lessandro.repository.impl.UbsRepositoryBatch;
 import br.com.lessandro.resources.exception.ValidationException;
 import br.com.lessandro.service.IAddressService;
 import br.com.lessandro.service.IGeocodeService;
 import br.com.lessandro.service.IScoreService;
 import br.com.lessandro.service.IUbsService;
+import br.com.lessandro.validator.GeocodeValidator;
 import br.com.lessandro.validator.PageValidator;
 
 @Service
@@ -47,6 +50,9 @@ public class UbsService implements IUbsService {
 
 	@Autowired
 	private IUbsRepository ubsRepository;
+	
+	@Autowired
+	private UbsRepositoryBatch ubsRepositorySave;
 
 	@Autowired
 	private IAddressService addressService;
@@ -64,12 +70,25 @@ public class UbsService implements IUbsService {
 	public PageDto<UbsDto> getAllUbs(int page, int size) throws ValidationException {
 		PageValidator.validatePageSize(page, size);
 		Page<Ubs> ubs = new PageImpl<>(new ArrayList<>());
-		Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "creationDate");
+		Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "latitude", "longitude");
 		ubs = ubsRepository.findAll(pageable);
 		List<UbsDto> ubsDto = Arrays.asList(modelMapper.map(ubs.getContent(), UbsDto[].class));
 		return new PageDto<>(ubsDto, ubs.getNumber(), ubs.getSize(), ubs.getTotalElements(), ubs.getTotalPages(),
 				ubs.isLast());
 	}
+	
+	@Override
+	public PageDto<UbsDto> findTopUbsByGeocode(String query, int page, int size) throws ValidationException {
+		PageValidator.validatePageSize(page, size);
+		GeocodeValidator.validateGeocode(query);
+		Page<Ubs> ubs = new PageImpl<>(new ArrayList<>());
+		Pageable pageable = PageRequest.of(page, size);
+		String[] latitudeLongitude = query.split(",");
+		ubs = ubsRepository.findTopUbsByGeocode(new BigDecimal(latitudeLongitude[0]), new BigDecimal(latitudeLongitude[1]), pageable);
+		List<UbsDto> ubsDto = Arrays.asList(modelMapper.map(ubs.getContent(), UbsDto[].class));
+		return new PageDto<>(ubsDto, ubs.getNumber(), ubs.getSize(), ubs.getTotalElements(), ubs.getTotalPages(),
+				ubs.isLast());
+	} 
 
 	@Override
 	public List<Ubs> readUbsFromCSV(InputStream inputStream) {
@@ -102,7 +121,9 @@ public class UbsService implements IUbsService {
 		Medicine medicine = new Medicine(null, metadata[12]);
 		Score score = new Score(null, structureSize, adaptationSenior, medicalEquipment, medicine);
 		Integer codCnes = metadata[3] != null ? Integer.valueOf(metadata[3]) : null;
-		Geocode geocode = new Geocode(null, metadata[0], metadata[1]);
+		BigDecimal latitude = metadata[0] != null ? new BigDecimal(metadata[0]) : null;
+		BigDecimal longitude = metadata[1] != null ? new BigDecimal(metadata[1]) : null;
+		Geocode geocode = new Geocode(null, latitude, longitude);
 		return new Ubs(null, metadata[4], codCnes, metadata[8], address, score, geocode);
 	}
 
@@ -115,7 +136,7 @@ public class UbsService implements IUbsService {
 				ubs.setGeocode(geocodeService.prepareGeocode(ubs.getGeocode()));
 				ubs.setAddress(addressService.prepareAddress(ubs.getAddress()));
 				ubs.setScore(scoreService.prepareScore(ubs.getScore()));
-				ubsRepository.saveUbs(ubs);
+				ubsRepositorySave.saveUbs(ubs);
 				totalUbs--;
 				System.out.println("Ubs restantes ".concat(String.valueOf(totalUbs)).concat(" de um total de ")
 						.concat(String.valueOf(ubsList.size())));

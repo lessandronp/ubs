@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = { "name", "username" }, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER_BLOG")
+@Table(name = "USER_UBS")
 public class User extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;

@@ -13,5 +13,6 @@ public interface IUbsService {
 	PageDto<UbsDto> getAllUbs(int page, int size) throws ValidationException;
 	List<Ubs> readUbsFromCSV(InputStream inputStream);
 	void saveUbsList(List<Ubs> ubsList);
+	PageDto<UbsDto> findTopUbsByGeocode(String query, int page, int size) throws ValidationException;;
 	
 }

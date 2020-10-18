@@ -29,7 +29,7 @@ import br.com.lessandro.security.UserPrincipal;
 import br.com.lessandro.service.IUserService;
 
 @RestController
-@RequestMapping("/rest/users")
+@RequestMapping("/api/v1/users")
 public class UserResource {
 
 	@Autowired

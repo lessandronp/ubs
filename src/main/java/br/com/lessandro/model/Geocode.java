@@ -1,12 +1,12 @@
 package br.com.lessandro.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = { "latitude", "longitude" }, callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "geocode", uniqueConstraints = {
-		@UniqueConstraint(name = "uk_geocode", columnNames = { "latitude", "longitude" }) })
 public class Geocode extends GenericEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -30,10 +28,10 @@ public class Geocode extends GenericEntity {
 	@Column(name = "geocode_id", nullable = false)
 	private Long id;
 
-	@Column(name = "latitude")
-	private String latitude;
+	@Column(name = "latitude", precision = 17, scale = 13)
+	private BigDecimal latitude;
 
-	@Column(name = "longitude")
-	private String longitude;
+	@Column(name = "longitude", precision = 17, scale = 13)
+	private BigDecimal longitude;
 
 }

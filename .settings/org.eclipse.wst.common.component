@@ -4,7 +4,7 @@
     
     
     
-    <wb-module deploy-name="ubs-prj-0.0.1-SNAPSHOT">
+    <wb-module deploy-name="UBS-0.0.1-SNAPSHOT">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
@@ -15,7 +15,7 @@
         
         <property name="java-output-path" value="/UBS/target/classes"/>
                 
-        <property name="context-root" value="ubs-prj"/>
+        <property name="context-root" value="UBS"/>
                                             
     
     
